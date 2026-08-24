@@ -6,6 +6,7 @@ part 'todos_controller.g.dart';
 
 @riverpod
 class TodosController extends _$TodosController {
+  @override
   TodosState build() {
     return TodosState.initial();
   }

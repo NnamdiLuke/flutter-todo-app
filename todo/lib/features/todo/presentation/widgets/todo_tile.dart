@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:todo/features/todo/domain/todo.dart';
 
 class TodoTile extends StatelessWidget {
-  const TodoTile({super.key});
+  final Todo todos;
+  final VoidCallback onToggleTodo;
+  final VoidCallback onDeleteTodo;
+  final VoidCallback onUpdateTodo;
+  const TodoTile({
+    super.key,
+    required this.todos,
+    required this.onToggleTodo,
+    required this.onDeleteTodo,
+    required this.onUpdateTodo,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,17 +23,26 @@ class TodoTile extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Checkbox(shape: CircleBorder(), value: false, onChanged: (_) {}),
+            Checkbox(
+              shape: CircleBorder(),
+              value: todos.isCompleted,
+              onChanged: (_) => onToggleTodo(),
+            ),
             Expanded(
               child: Text(
-                'Task',
+                todos.title,
                 style: textTheme.titleMedium?.copyWith(
-                  decoration: TextDecoration.none,
+                  decoration: todos.isCompleted
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
                 ),
               ),
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.delete_outline)),
+            IconButton(onPressed: onUpdateTodo, icon: Icon(Icons.edit)),
+            IconButton(
+              onPressed: onDeleteTodo,
+              icon: Icon(Icons.delete_outline),
+            ),
           ],
         ),
       ),

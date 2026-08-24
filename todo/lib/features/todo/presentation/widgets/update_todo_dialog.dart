@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 
-typedef AddTodoCallback = void Function(String);
+typedef UpdateTodoCallBack = void Function(String);
 
-class TodoAddingDialog extends StatefulWidget {
-  final AddTodoCallback onAddTodo;
-  const TodoAddingDialog({super.key, required this.onAddTodo});
+class UpdateTodoDialog extends StatefulWidget {
+  final String title;
+  final UpdateTodoCallBack onUpdateTodo;
+  const UpdateTodoDialog({
+    super.key,
+    required this.title,
+    required this.onUpdateTodo,
+  });
 
   @override
-  State<TodoAddingDialog> createState() => _TodoAddingDialogState();
+  State<UpdateTodoDialog> createState() => _UpdateTodoDialogState();
 }
 
-class _TodoAddingDialogState extends State<TodoAddingDialog> {
+class _UpdateTodoDialogState extends State<UpdateTodoDialog> {
   final textController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // on load set the textcontroller to title that will be pass
+    textController.text = widget.title;
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -23,7 +36,7 @@ class _TodoAddingDialogState extends State<TodoAddingDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             // title
-            Text('New Todo', style: textTheme.titleLarge),
+            Text('Update Todo', style: textTheme.titleLarge),
             SizedBox(height: 20),
             TextField(
               controller: textController,
@@ -48,10 +61,10 @@ class _TodoAddingDialogState extends State<TodoAddingDialog> {
                       );
                       return;
                     }
-                    widget.onAddTodo(title);
+                    widget.onUpdateTodo(title);
                     Navigator.of(context).pop();
                   },
-                  child: Text('Add'),
+                  child: Text('Update'),
                 ),
               ],
             ),

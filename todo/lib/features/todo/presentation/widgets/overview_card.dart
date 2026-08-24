@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class OverviewCard extends StatelessWidget {
-  const OverviewCard({super.key});
+  final int commpletedcount;
+  final int totalTodosCount;
+  const OverviewCard({
+    super.key,
+    required this.commpletedcount,
+    required this.totalTodosCount,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,9 @@ class OverviewCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Complete your first task',
+                    commpletedcount > 0
+                        ? 'Keep it up'
+                        : 'Complete your first task',
                     style: textTheme.bodyMedium?.copyWith(
                       color: theme.hintColor,
                     ),
@@ -42,7 +50,7 @@ class OverviewCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                '0/10',
+                '$commpletedcount/$totalTodosCount',
                 style: textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
