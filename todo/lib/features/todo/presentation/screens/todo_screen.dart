@@ -8,9 +8,6 @@ class TodoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-    final colorScheme = theme.colorScheme;
     return Scaffold(
       body: SafeArea(
         child: Column(
